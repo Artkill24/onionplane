@@ -1,5 +1,12 @@
 # OnionPlane
 
+![License](https://img.shields.io/badge/license-MIT-a877f0)
+![Python](https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white)
+![Tor](https://img.shields.io/badge/Tor-onion%20service-7D4698?logo=torproject&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white)
+
 **A self-hosted control plane for Tor onion services.** Put any backend behind a
 `.onion` address, keep that address stable across restarts, and monitor whether
 it's actually reachable — and how slow it is — over Tor. One `docker compose up`.
