@@ -1,0 +1,8 @@
+*.db
+*.pyc
+.env
+.next/
+.venv/
+__pycache__/
+node_modules/
+torrc

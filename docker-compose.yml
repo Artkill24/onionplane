@@ -1,0 +1,36 @@
+services:
+  tor:
+    build: ./tor
+    environment:
+      # Change this. The API uses the same value to authenticate.
+      TOR_CONTROL_PASSWORD: ${TOR_CONTROL_PASSWORD:-CHANGEME}
+    healthcheck:
+      test: ["CMD", "nc", "-z", "127.0.0.1", "9051"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  api:
+    build: .
+    depends_on:
+      tor:
+        condition: service_healthy
+    environment:
+      TOR_CONTROL_HOST: tor
+      TOR_CONTROL_PASSWORD: ${TOR_CONTROL_PASSWORD:-CHANGEME}
+      TOR_SOCKS_PROXY: socks5://tor:9050
+      # The onion service forwards to this backend (the demo container below).
+      DEFAULT_TARGET_HOST: demo
+    ports:
+      - "8001:8000"          # API reachable on http://127.0.0.1:8001
+    volumes:
+      - onionplane-data:/data
+    restart: unless-stopped
+
+  demo:
+    image: nginx:alpine       # stand-in backend to expose over Tor
+    restart: unless-stopped
+
+volumes:
+  onionplane-data:
